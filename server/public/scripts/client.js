@@ -22,14 +22,27 @@ function renderKoalas(koalaList) {
   // console.log('koala list', koalaList);
   viewKoalas.innerHTML = '';
   for (let bears of koalaList) {
+    if(bears.transfer === true) {
     viewKoalas.innerHTML += `
-    <tr>
+    <tr>      
       <td>${bears.name}</td>
       <td>${bears.age}</td>
       <td>${bears.color}</td>
       <td>${bears.transfer}</td>
       <td>${bears.notes}</td>
+      <td><button onClick=transfer(${bears.id},${bears.transfer})>Complete Transfer</button></td>
     </tr>`;
+    } else {
+      viewKoalas.innerHTML += `
+      <tr>      
+        <td>${bears.name}</td>
+        <td>${bears.age}</td>
+        <td>${bears.color}</td>
+        <td>${bears.transfer}</td>
+        <td>${bears.notes}</td>
+        <td><button onClick=transfer(${bears.id},${bears.transfer}) hidden>Complete Transfer</button></td>
+      </tr>`;
+    }
   }
 }
 
@@ -80,4 +93,23 @@ function submitForm(event) {
     })
 };
 
+function transfer(koalaId, transfer){
+  
+  let payloadObject = {
+    id: koalaId,
+    transfer: transfer
+    
+  }
 
+  axios.put(`/koalas/${koalaId}`, payloadObject)
+    .then(response => {
+      console.log('this is a console log', koalaId);
+
+      getKoalas();
+    })
+    .catch(error => {
+      console.log('error in PUT', error);
+      alert('something went wrong with the transfer PUT');
+    })
+
+};
