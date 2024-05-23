@@ -30,9 +30,9 @@ function renderKoalas(koalaList) {
       <td>${bears.color}</td>
       <td>${bears.transfer}</td>
       <td>${bears.notes}</td>
-      <td><button onClick=transfer(${bears.id},${bears.transfer})>Complete Transfer</button></td>
+      <td><button onClick=transfer(${bears.id},${bears.transfer}) >Ready for Transfer</button></td>
     </tr>`;
-    } else {
+    } else if (bears.transfer === false){
       viewKoalas.innerHTML += `
       <tr>      
         <td>${bears.name}</td>
@@ -40,7 +40,7 @@ function renderKoalas(koalaList) {
         <td>${bears.color}</td>
         <td>${bears.transfer}</td>
         <td>${bears.notes}</td>
-        <td><button onClick=transfer(${bears.id},${bears.transfer}) hidden>Complete Transfer</button></td>
+        <td><button onClick=transfer(${bears.id},${bears.transfer}) hidden >Ready for Transfer</button></td>
       </tr>`;
     }
   }
